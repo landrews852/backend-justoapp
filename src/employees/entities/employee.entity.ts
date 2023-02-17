@@ -1,10 +1,7 @@
-import { ID, ObjectType, Field } from '@nestjs/graphql';
-import { Item } from 'src/items/entities/item.entity';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
-import { User } from 'src/users/entities/user.entity';
-import { EmployeeHistory } from './types';
-import { History } from 'src/histories/entities/history.entity';
+import { ID, ObjectType, Field } from "@nestjs/graphql";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import * as mongoose from "mongoose";
+import { History } from "src/histories/entities/history.entity";
 
 export type EmployeeDocument = Employee & mongoose.Document;
 
