@@ -1,14 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { CreateHistoryInput } from './dto/create-history.input';
-import { UpdateHistoryInput } from './dto/update-history.input';
-import { History, HistoryDocument } from './entities/history.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { CreateHistoryInput } from "./dto/create-history.input";
+import { UpdateHistoryInput } from "./dto/update-history.input";
+import { History, HistoryDocument } from "./entities/history.entity";
 
 @Injectable()
 export class HistoryService {
   constructor(
-    @InjectModel(History.name) private historyModel: Model<HistoryDocument>,
+    @InjectModel(History.name) private historyModel: Model<HistoryDocument>
   ) {}
 
   async create(history: CreateHistoryInput) {
@@ -27,12 +27,12 @@ export class HistoryService {
           date: history.date,
         },
       },
-      { new: true },
+      { new: true }
     );
   }
 
   async findAll() {
-    return this.historyModel.find().lean();
+    return await this.historyModel.find().lean();
   }
 
   async findByRelationId(input) {
@@ -41,7 +41,7 @@ export class HistoryService {
         if (err) {
           console.log(err);
         } else {
-          console.log('Result: ', docs);
+          console.log("Result: ", docs);
           return docs;
         }
       })
@@ -53,7 +53,7 @@ export class HistoryService {
   }
 
   async findById(input: string) {
-    const history = this.historyModel.findById(input);
+    const history = await this.historyModel.findById(input);
     if (history) return history;
     else return Error("There's a problem with your search");
   }

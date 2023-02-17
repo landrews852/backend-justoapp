@@ -1,12 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-// import { InjectModel } from '@nestjs/mongoose';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
-// import { UpdateUserInput } from './dto/update-user.input';
-// import { FindUserInput } from './dto/find-user.input';
-import { User, UserDocument } from './entities/user.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { CreateUserInput } from "./dto/create-user.input";
+import { UpdateUserInput } from "./dto/update-user.input";
+import { User, UserDocument } from "./entities/user.entity";
 
 @Injectable()
 export class UsersService {
@@ -14,7 +11,7 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async createUser(user: CreateUserInput) {
-    return this.userModel.create(user);
+    return await this.userModel.create(user);
   }
 
   async update(_id: string, user: UpdateUserInput) {
@@ -22,7 +19,7 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.userModel.find().lean();
+    return await this.userModel.find().lean();
   }
 
   // async findOne(input) {
@@ -43,7 +40,7 @@ export class UsersService {
   // }
 
   async findById(_id: string) {
-    const user = this.userModel.findById(_id);
+    const user = await this.userModel.findById(_id);
     if (user) return user;
     else return Error("There's a problem with your search");
     //   const user = this.users.filter((user) => user._id === id);

@@ -1,18 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { CreateEmployeeInput } from './dto/create-employee.input';
-import { UpdateEmployeeInput } from './dto/update-employee.input';
-import { Employee, EmployeeDocument } from './entities/employee.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { CreateEmployeeInput } from "./dto/create-employee.input";
+import { UpdateEmployeeInput } from "./dto/update-employee.input";
+import { Employee, EmployeeDocument } from "./entities/employee.entity";
 
 @Injectable()
 export class EmployeesService {
   constructor(
-    @InjectModel(Employee.name) private employeeModel: Model<EmployeeDocument>,
+    @InjectModel(Employee.name) private employeeModel: Model<EmployeeDocument>
   ) {}
 
   async create(employee: CreateEmployeeInput) {
-    return this.employeeModel.create(employee);
+    return await this.employeeModel.create(employee);
   }
 
   async update(employee: UpdateEmployeeInput) {
@@ -25,21 +25,21 @@ export class EmployeesService {
           position: employee.position,
         },
       },
-      { new: true },
+      { new: true }
     );
   }
 
   async findAll() {
-    return this.employeeModel.find().lean();
+    return await this.employeeModel.find().lean();
   }
 
   async findOne(input) {
-    const employee = this.employeeModel
+    const employee = await this.employeeModel
       .findOne({ email: { input } }, function (err, docs) {
         if (err) {
           console.log(err);
         } else {
-          console.log('Result: ', docs);
+          console.log("Result: ", docs);
           return docs;
         }
       })
@@ -51,7 +51,7 @@ export class EmployeesService {
   }
 
   async findById(input: string) {
-    const employee = this.employeeModel.findById(input);
+    const employee = await this.employeeModel.findById(input);
     if (employee) return employee;
     else return Error("There's a problem with your search");
   }

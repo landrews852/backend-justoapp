@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { CreateItemInput } from './dto/create-item.input';
-import { UpdateItemInput } from './dto/update-item.input';
-import { Item, ItemDocument } from './entities/item.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { CreateItemInput } from "./dto/create-item.input";
+import { UpdateItemInput } from "./dto/update-item.input";
+import { Item, ItemDocument } from "./entities/item.entity";
 // import { AddHistoryInput } from './dto/add-history.input';
 // import { v1 as uuidv1 } from 'uuid';
 
@@ -26,7 +26,7 @@ export class ItemsService {
           createdBy: item.createdBy,
         },
       },
-      { new: true },
+      { new: true }
     );
   }
 
@@ -61,7 +61,7 @@ export class ItemsService {
         if (err) {
           console.log(err);
         } else {
-          console.log('Result: ', docs);
+          console.log("Result: ", docs);
           return docs;
         }
       })
@@ -73,7 +73,7 @@ export class ItemsService {
   }
 
   async findById(input: string) {
-    const item = this.itemModel.findById(input);
+    const item = await this.itemModel.findById(input);
     if (item) return item;
     else return Error("There's a problem with your search");
   }

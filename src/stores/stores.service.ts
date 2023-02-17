@@ -1,15 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { CreateStoreInput } from './dto/create-store.input';
-import { UpdateStoreInput } from './dto/update-store.input';
-import { Store, StoreDocument } from './entities/store.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { CreateStoreInput } from "./dto/create-store.input";
+import { UpdateStoreInput } from "./dto/update-store.input";
+import { Store, StoreDocument } from "./entities/store.entity";
 
 @Injectable()
 export class StoresService {
   users: Partial<Store>[];
   constructor(
-    @InjectModel(Store.name) private storeModel: Model<StoreDocument>,
+    @InjectModel(Store.name) private storeModel: Model<StoreDocument>
   ) {}
 
   async create(store: CreateStoreInput) {
@@ -25,12 +25,12 @@ export class StoresService {
           location: store.location,
         },
       },
-      { new: true },
+      { new: true }
     );
   }
 
   async findAll() {
-    return this.storeModel.find().lean();
+    return await this.storeModel.find().lean();
   }
 
   async findOne(input) {
@@ -39,7 +39,7 @@ export class StoresService {
         if (err) {
           console.log(err);
         } else {
-          console.log('Result: ', docs);
+          console.log("Result: ", docs);
           return docs;
         }
       })
@@ -51,7 +51,7 @@ export class StoresService {
   }
 
   async findById(_id) {
-    const store = this.storeModel.findById(_id);
+    const store = await this.storeModel.findById(_id);
     if (store) return store;
     else return Error("There's a problem with your search");
   }

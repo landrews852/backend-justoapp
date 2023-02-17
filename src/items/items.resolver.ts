@@ -5,36 +5,36 @@ import {
   Args,
   ResolveField,
   Parent,
-} from '@nestjs/graphql';
-import { ItemsService } from './items.service';
-import { Item } from './entities/item.entity';
-import { CreateItemInput } from './dto/create-item.input';
-import { User } from 'src/users/entities/user.entity';
-import { UsersService } from 'src/users/users.service';
-import { FindItemInput } from './dto/find-item.input';
-import { UpdateItemInput } from './dto/update-item.input';
-import { AddHistoryInput } from './dto/add-history.input';
-import { History } from 'src/histories/entities/history.entity';
-import { HistoryService } from 'src/histories/history.service';
+} from "@nestjs/graphql";
+import { ItemsService } from "./items.service";
+import { Item } from "./entities/item.entity";
+import { CreateItemInput } from "./dto/create-item.input";
+import { User } from "src/users/entities/user.entity";
+import { UsersService } from "src/users/users.service";
+import { FindItemInput } from "./dto/find-item.input";
+import { UpdateItemInput } from "./dto/update-item.input";
+import { AddHistoryInput } from "./dto/add-history.input";
+import { History } from "src/histories/entities/history.entity";
+import { HistoryService } from "src/histories/history.service";
 
 @Resolver(() => Item)
 export class ItemsResolver {
   constructor(
     private itemsService: ItemsService,
     private usersService: UsersService,
-    private historyService: HistoryService,
+    private historyService: HistoryService
   ) {}
 
   @Mutation(() => Item)
-  async createItem(@Args('input') item: CreateItemInput) {
+  async createItem(@Args("input") item: CreateItemInput) {
     console.log(item);
-    return this.itemsService.create(item);
+    return await this.itemsService.create(item);
   }
 
   @Mutation(() => Item)
-  async updateItem(@Args('input') item: UpdateItemInput) {
+  async updateItem(@Args("input") item: UpdateItemInput) {
     console.log(item);
-    return this.itemsService.update(item);
+    return await this.itemsService.update(item);
   }
 
   // @Mutation(() => Item)
@@ -43,36 +43,36 @@ export class ItemsResolver {
   //   return this.itemsService.addHistory(history);
   // }
 
-  @Query(() => [Item], { name: 'items' })
+  @Query(() => [Item], { name: "items" })
   async findAll() {
-    return this.itemsService.findAll();
+    return await this.itemsService.findAll();
   }
 
   @Query(() => Item)
-  async item(@Args('input') input: FindItemInput) {
+  async item(@Args("input") input: FindItemInput) {
     if (input._id) {
-      return this.itemsService.findById(input._id);
+      return await this.itemsService.findById(input._id);
     }
     if (input.serialNumber) {
-      return this.itemsService.findBySerialNumber(input.serialNumber);
+      return await this.itemsService.findBySerialNumber(input.serialNumber);
     } else
       return Error(
-        'Es necesario el "Número de serie" o el "ID" para realizar la búsqueda',
+        'Es necesario el "Número de serie" o el "ID" para realizar la búsqueda'
       );
   }
 
   @Mutation(() => Item)
-  async deleteItem(@Args('_id') _id: string) {
+  async deleteItem(@Args("_id") _id: string) {
     return await this.itemsService.delete(_id);
   }
 
   @ResolveField(() => User)
   async createdBy(@Parent() parent: Item) {
-    return this.usersService.findById(parent.createdBy);
+    return await this.usersService.findById(parent.createdBy);
   }
 
   @ResolveField(() => History)
   async itemHistory(@Parent() parent: Item) {
-    return this.historyService.findByItemId(parent._id);
+    return await this.historyService.findByItemId(parent._id);
   }
 }
