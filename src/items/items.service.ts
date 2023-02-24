@@ -12,22 +12,30 @@ export class ItemsService {
   constructor(@InjectModel(Item.name) private itemModel: Model<ItemDocument>) {}
 
   async create(item: CreateItemInput) {
-    return await this.itemModel.create(item);
+    try {
+      await this.itemModel.create(item);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async update(item: UpdateItemInput) {
-    return await this.itemModel.findByIdAndUpdate(
-      item._id,
-      {
-        $set: {
-          name: item.name,
-          model: item.model,
-          serialNumber: item.serialNumber,
-          createdBy: item.createdBy,
+    try {
+      await this.itemModel.findByIdAndUpdate(
+        item._id,
+        {
+          $set: {
+            name: item.name,
+            model: item.model,
+            serialNumber: item.serialNumber,
+            createdBy: item.createdBy,
+          },
         },
-      },
-      { new: true }
-    );
+        { new: true }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   // async addHistory(history: AddHistoryInput) {
@@ -52,7 +60,11 @@ export class ItemsService {
   // }
 
   async findAll() {
-    return await this.itemModel.find().lean();
+    try {
+      await this.itemModel.find().lean();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async findBySerialNumber(input) {
@@ -66,7 +78,8 @@ export class ItemsService {
         }
       })
       .lean()
-      .clone();
+      .clone()
+      .catch((e) => console.error(e));
 
     if (item) return item;
     else return Error("There's a problem with your search");

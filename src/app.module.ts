@@ -13,9 +13,7 @@ import { HistoryModule } from "./histories/history.module";
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      "mongodb+srv://landrews:hVvvK4tzUawD2LcW@cluster0.xbt7qs9.mongodb.net/test"
-    ),
+    MongooseModule.forRoot(process.env.DATABASE),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), "src/schema.gql"),

@@ -27,14 +27,17 @@
     "@nestjs/graphql": "^10.0.22",
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@vendia/serverless-express": "^4.10.1",
     "apollo-server-express": "^3.10.1",
+    "aws-lambda": "^1.0.7",
     "graphql": "^16.6.0",
     "graphql-tools": "^8.3.3",
     "graphql-type-json": "^0.3.2",
     "mongoose": "^6.7.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "type-graphql": "^1.1.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
