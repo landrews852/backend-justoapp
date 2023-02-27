@@ -13,7 +13,10 @@ import { HistoryModule } from "./histories/history.module";
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://localhost:3005/justo-mongodb"),
+    MongooseModule.forRoot(
+      // "mongodb+srv://landrews:hVvvK4tzUawD2LcW@cluster0.xbt7qs9.mongodb.net/?retryWrites=true&w=majority"
+      `mongodb+srv://landrews:${process.env.DB_PASSWORD}@cluster0.xbt7qs9.mongodb.net/?retryWrites=true&w=majority`
+    ),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), "src/schema.gql"),
