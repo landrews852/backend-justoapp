@@ -1,0 +1,160 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateEmployeeInput {
+  email: String!
+  name: String!
+  position: String
+}
+
+input CreateHistoryInput {
+  date: String!
+  item: String!
+  ownerType: String!
+  relationId: String!
+  relationName: String!
+}
+
+input CreateItemInput {
+  createdBy: String!
+  model: String!
+  name: String!
+  serialNumber: String!
+}
+
+input CreateStoreInput {
+  location: String!
+  name: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+type Employee {
+  _id: ID!
+  email: String!
+  employeeHistory: [History!]!
+  name: String!
+  position: String!
+}
+
+input FindEmployeeInput {
+  _id: ID
+  email: String
+  name: String
+  position: String
+}
+
+input FindHistoryInput {
+  _id: ID
+  relationId: String
+}
+
+input FindItemInput {
+  _id: ID
+  serialNumber: String
+}
+
+input FindStoreInput {
+  _id: ID
+  name: String
+}
+
+input FindUserInput {
+  _id: Int!
+}
+
+type History {
+  _id: ID!
+  date: String!
+  item: Item
+  ownerType: String!
+  relationId: String!
+  relationName: String!
+}
+
+type Item {
+  _id: ID!
+  createdBy: User
+  itemHistory: [History!]
+  model: String!
+  name: String!
+  serialNumber: String!
+}
+
+type Mutation {
+  createEmployee(input: CreateEmployeeInput!): Employee!
+  createHistory(input: CreateHistoryInput!): History!
+  createItem(input: CreateItemInput!): Item!
+  createStore(input: CreateStoreInput!): Store!
+  createUser(input: CreateUserInput!): User!
+  deleteEmployee(_id: String!): Employee!
+  deleteItem(_id: String!): Item!
+  deleteStore(_id: String!): Store!
+  updateEmployee(input: UpdateEmployeeInput!): Employee!
+  updateHistory(input: UpdateHistoryInput!): History!
+  updateItem(input: UpdateItemInput!): Item!
+  updateStore(input: UpdateStoreInput!): Store!
+}
+
+type Query {
+  employee(input: FindEmployeeInput!): Employee!
+  employees: [Employee!]!
+  histories: [History!]!
+  history(input: FindHistoryInput!): History!
+  item(input: FindItemInput!): Item!
+  items: [Item!]!
+  store(input: FindStoreInput!): Store!
+  stores: [Store!]!
+  user(input: FindUserInput!): User!
+  users: [User!]!
+}
+
+type Store {
+  _id: ID!
+  location: String!
+  name: String!
+  storeHistory: [History!]
+}
+
+input UpdateEmployeeInput {
+  _id: ID!
+  email: String
+  name: String
+  position: String
+}
+
+input UpdateHistoryInput {
+  _id: String
+  date: String
+  item: String
+  ownerType: String
+  relationId: String
+  relationName: String
+}
+
+input UpdateItemInput {
+  _id: ID!
+  createdBy: String
+  model: String
+  name: String
+  serialNumber: String
+}
+
+input UpdateStoreInput {
+  _id: Int!
+  location: String
+  name: String
+}
+
+type User {
+  _id: ID!
+  email: String!
+  itemsCreated: [Item!]!
+  password: String!
+  username: String!
+}

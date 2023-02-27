@@ -22,20 +22,35 @@ let ItemsService = class ItemsService {
         this.itemModel = itemModel;
     }
     async create(item) {
-        return await this.itemModel.create(item);
+        try {
+            await this.itemModel.create(item);
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
     async update(item) {
-        return await this.itemModel.findByIdAndUpdate(item._id, {
-            $set: {
-                name: item.name,
-                model: item.model,
-                serialNumber: item.serialNumber,
-                createdBy: item.createdBy,
-            },
-        }, { new: true });
+        try {
+            await this.itemModel.findByIdAndUpdate(item._id, {
+                $set: {
+                    name: item.name,
+                    model: item.model,
+                    serialNumber: item.serialNumber,
+                    createdBy: item.createdBy,
+                },
+            }, { new: true });
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
     async findAll() {
-        return await this.itemModel.find().lean();
+        try {
+            await this.itemModel.find().lean();
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
     async findBySerialNumber(input) {
         const item = await this.itemModel
@@ -49,7 +64,8 @@ let ItemsService = class ItemsService {
             }
         })
             .lean()
-            .clone();
+            .clone()
+            .catch((e) => console.error(e));
         if (item)
             return item;
         else

@@ -29,15 +29,9 @@ import { Item, ItemDocument } from "./entities/item.entity";
 export declare class ItemsService {
     private itemModel;
     constructor(itemModel: Model<ItemDocument>);
-    create(item: CreateItemInput): Promise<Item & import("mongoose").Document<any, any, any> & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    update(item: UpdateItemInput): Promise<Item & import("mongoose").Document<any, any, any> & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findAll(): Promise<import("mongoose").LeanDocument<Item & import("mongoose").Document<any, any, any> & {
-        _id: import("mongoose").Types.ObjectId;
-    }>[]>;
+    create(item: CreateItemInput): Promise<void>;
+    update(item: UpdateItemInput): Promise<void>;
+    findAll(): Promise<void>;
     findBySerialNumber(input: any): Promise<Error | import("mongoose").LeanDocument<Item & import("mongoose").Document<any, any, any> & {
         _id: import("mongoose").Types.ObjectId;
     }>>;

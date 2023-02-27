@@ -37,15 +37,9 @@ export declare class ItemsResolver {
     private usersService;
     private historyService;
     constructor(itemsService: ItemsService, usersService: UsersService, historyService: HistoryService);
-    createItem(item: CreateItemInput): Promise<Item & import("mongoose").Document<any, any, any> & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    updateItem(item: UpdateItemInput): Promise<Item & import("mongoose").Document<any, any, any> & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findAll(): Promise<import("mongoose").LeanDocument<Item & import("mongoose").Document<any, any, any> & {
-        _id: import("mongoose").Types.ObjectId;
-    }>[]>;
+    createItem(item: CreateItemInput): Promise<void>;
+    updateItem(item: UpdateItemInput): Promise<void>;
+    findAll(): Promise<void>;
     item(input: FindItemInput): Promise<Error | import("mongoose").LeanDocument<Item & import("mongoose").Document<any, any, any> & {
         _id: import("mongoose").Types.ObjectId;
     }>>;

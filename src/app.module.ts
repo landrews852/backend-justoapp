@@ -13,7 +13,7 @@ import { HistoryModule } from "./histories/history.module";
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.DATABASE),
+    MongooseModule.forRoot("mongodb://localhost:3005/justo-mongodb"),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), "src/schema.gql"),
@@ -30,3 +30,8 @@ import { HistoryModule } from "./histories/history.module";
   providers: [AppService],
 })
 export class AppModule {}
+// yarn global add serverless && serverless \
+//     --org=landrews \
+//     --app=backend-justoapp \
+//     --name=backend-justoapp \
+//     --template=aws-node-express-api

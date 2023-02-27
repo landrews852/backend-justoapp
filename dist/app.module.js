@@ -24,7 +24,7 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot("mongodb+srv://landrews:hVvvK4tzUawD2LcW@cluster0.xbt7qs9.mongodb.net/test"),
+            mongoose_1.MongooseModule.forRoot("mongodb://localhost:3005/justo-mongodb"),
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
                 autoSchemaFile: (0, path_1.join)(process.cwd(), "src/schema.gql"),
